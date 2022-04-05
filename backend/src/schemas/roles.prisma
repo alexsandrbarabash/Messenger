@@ -1,0 +1,8 @@
+model Roles {
+  id        String      @id @default(uuid()) @db.Uuid
+  roles     String      @db.Uuid
+  settings  Json        @db.Json
+  chatUser ChatUser[]
+
+  @@map("roles")
+}

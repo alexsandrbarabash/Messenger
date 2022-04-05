@@ -1,0 +1,14 @@
+model Users {
+  id         String      @id @default(uuid()) @db.Uuid
+  firstName  String      @db.VarChar(25) @map("first_name")
+  lastName   String?     @db.VarChar(25) @map("last_name")
+  username   String      @db.VarChar(25)
+  password   String?
+  avatar     String?
+  isBot      Boolean     @default(false) @map("is_bot")
+  createdAt  DateTime     @default(now()) @db.Timestamp(6) @map("created_at")
+  chatUser   ChatUser[]
+  messages   Messages[]
+
+  @@map("users")
+}
