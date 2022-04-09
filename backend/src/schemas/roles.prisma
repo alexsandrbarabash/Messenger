@@ -1,6 +1,6 @@
 model Roles {
   id        String      @id @default(uuid()) @db.Uuid
-  roles     String      @db.Uuid
+  roles     String      @db.Uuid @unique
   settings  Json        @db.Json
   chatUser ChatUser[]
 

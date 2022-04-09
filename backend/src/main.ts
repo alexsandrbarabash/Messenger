@@ -19,12 +19,13 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
+      whitelist: true,
       transform: true,
+      forbidNonWhitelisted: true,
     }),
   );
 
   const applicationRuntimeProcedures = new ApplicationRuntimeProcedures();
-
   await applicationRuntimeProcedures.startPrisma();
 
   await app.useLogger(app.get(PinoLoggerService));
