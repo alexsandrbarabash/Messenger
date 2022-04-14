@@ -1,6 +1,6 @@
 model Users {
   id         String      @id @default(uuid()) @db.Uuid
-  firstName  String      @db.VarChar(25) @map("first_name")
+  firstName  String?     @db.VarChar(25) @map("first_name")
   lastName   String?     @db.VarChar(25) @map("last_name")
   username   String      @db.VarChar(25) @unique
   password   String?

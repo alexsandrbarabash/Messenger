@@ -30,6 +30,7 @@ export class AuthenticationController {
   @UseGuards(LocalAuthenticationGuard)
   public logIn(@Req() request: IRequestWithUser): Promise<ITokens> {
     const { user } = request;
+    console.log('asdasd');
     return this._usersService.getJwtTokens(user.id);
   }
 

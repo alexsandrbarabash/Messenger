@@ -7,7 +7,7 @@ import { ASYNC_STORAGE } from './logger/logger.constants';
 import { ApplicationRuntimeProcedures } from './runtime-procedures';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   app.use((req, res, next) => {
     const asyncStorage = app.get(ASYNC_STORAGE);
@@ -29,7 +29,7 @@ async function bootstrap() {
   await applicationRuntimeProcedures.startPrisma();
 
   await app.useLogger(app.get(PinoLoggerService));
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();
