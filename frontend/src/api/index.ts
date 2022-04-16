@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { RoutesEnum, MethodsEnum } from '../enums';
-import { ITokens, IRegisterBody, ILogInBody } from '../types';
+import { ITokens, IRegisterBody, ILogInBody, IUser } from '../types';
 
 export class ApiHandler {
   private readonly _apiInstance: AxiosInstance;
@@ -32,18 +32,17 @@ export class ApiHandler {
     });
   }
 
-  public async logIn({ username, password }: ILogInBody): Promise<ITokens> {
-    const response = await this._apiInstance.request<ILogInBody, ITokens>({
+  public async logIn({ username, password }: ILogInBody): Promise<ITokens & IUser> {
+    const response = await this._apiInstance.request<ILogInBody, ITokens & IUser>({
       url: RoutesEnum.LOG_IN,
       method: MethodsEnum.POST,
       data: { username, password }
     });
-    console.log(response);
     return response;
   }
 
-  public async refresh(refreshToken: string): Promise<ITokens>{
-    return this._apiInstance.request<ILogInBody, ITokens>({
+  public async refresh(refreshToken: string): Promise<ITokens & IUser>{
+    return this._apiInstance.request<ILogInBody, ITokens & IUser>({
       url: RoutesEnum.LOG_IN,
       method: MethodsEnum.POST,
       data: { refreshToken }

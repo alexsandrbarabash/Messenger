@@ -8,6 +8,7 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path={PagesEnum.HOME} element={<HomePage />} />
+      <Route path={PagesEnum.HOME_WITH_PARAMS} element={<HomePage />} />
       <Route path={PagesEnum.AUTH} element={<AuthPage />} />
       <Route path={PagesEnum.REGISTER} element={<RegisterPage />} />
       <Route path='*' element={<NotFoundPage />} />

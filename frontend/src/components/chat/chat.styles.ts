@@ -7,4 +7,15 @@ export const ChatWrapper = styled.div`
   display: grid;
   grid-template-rows: 15% 73% 8%;
   max-height: 580px;
+  position: relative;
+  
+  .not-select-chat {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+  }
 `;

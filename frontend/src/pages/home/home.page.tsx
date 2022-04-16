@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withLoging } from '../../hocs';
+import { withLogin } from '../../hocs';
 import { HomeWrapper } from './home.styles';
 import { MenuComponent, ChatsListComponent, ChatComponent } from '../../components';
 
@@ -14,4 +14,4 @@ const HomePage = () => {
   );
 };
 
-export default withLoging(HomePage);
+export default withLogin(HomePage);

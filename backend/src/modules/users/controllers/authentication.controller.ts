@@ -11,7 +11,13 @@ import {
 import { UsersService } from '../services';
 import { CreateUserDto, RefreshTokenDto } from '../dto';
 import { LocalAuthenticationGuard } from 'src/common/guards';
-import { IRequestWithUser, IUserResponse, ITokens } from '../types';
+import {
+  IRequestWithUser,
+  IUserResponse,
+  ITokens,
+  LoginResponse,
+} from '../types';
+import { UserMapper } from '../mappers';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -28,10 +34,10 @@ export class AuthenticationController {
   @Post('log-in')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthenticationGuard)
-  public logIn(@Req() request: IRequestWithUser): Promise<ITokens> {
+  public async logIn(@Req() request: IRequestWithUser): Promise<LoginResponse> {
     const { user } = request;
-    console.log('asdasd');
-    return this._usersService.getJwtTokens(user.id);
+    const tokens = await this._usersService.getJwtTokens(user.id);
+    return UserMapper.formatResponseForLogin({ tokens, user });
   }
 
   @Post('refresh-token')
