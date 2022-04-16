@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from 'effector-react';
 import { Alert } from '@mui/material';
 
-import { AlertWrapper } from './alert.styled';
+import { AlertWrapper } from './alert.styles';
 import { alertStore, unShowAlert } from '../../stores';
 
 export const AlertComponent = () => {

@@ -2,11 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   * {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   body {
-    background-color: #0A1929;
-    color: #42A5F5;
+    background-color: #303030;
+    color: #E7EFF5;
+    height: 100%;
   }
 `;

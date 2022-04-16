@@ -6,7 +6,7 @@ export const login = createEvent<ITokens>();
 export const logout = createEvent();
 
 export const userStore = createStore<IUserStore>({
-  isAuth: false,
+  isAuth: true,
   refreshToken: '',
   accessToken: ''
 })
