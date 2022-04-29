@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -7,7 +7,11 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { MenuWrapper } from './menu.styles';
 import { Image } from '../../common/styles';
 
-export const MenuComponent = () => {
+interface IProps {
+  openChatModeHandler: () => void;
+}
+
+export const MenuComponent: React.FC<IProps> = ({ openChatModeHandler }) => {
   return (
     <MenuWrapper>
       <div>
@@ -17,7 +21,10 @@ export const MenuComponent = () => {
         />
       </div>
       <div className='icons'>
-        <AddCircleOutlineIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
+        <AddCircleOutlineIcon
+          sx={{ fontSize: 40, cursor: 'pointer' }}
+          onClick={() => openChatModeHandler()}
+        />
         <MessageOutlinedIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
         <SettingsOutlinedIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
       </div>

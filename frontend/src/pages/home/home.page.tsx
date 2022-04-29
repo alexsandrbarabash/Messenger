@@ -6,15 +6,21 @@ import {
   MenuComponent,
   ChatsListComponent,
   ChatComponent,
-  // CreateChatModel
+  CreateChatModel
 } from '../../components';
+import { useCreateChat } from '../../hooks';
 
 const HomePage = () => {
+  const { open, handleOpen, handleClose } = useCreateChat();
+
   return (
     <>
-      {/*<CreateChatModel />*/}
+      <CreateChatModel
+        open={open}
+        handleClose={handleClose}
+      />
       <HomeWrapper>
-        <MenuComponent />
+        <MenuComponent openChatModeHandler={handleOpen} />
         <ChatsListComponent />
         <ChatComponent />
       </HomeWrapper>

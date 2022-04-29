@@ -1,9 +1,21 @@
-import { Controller, Get, Query, Param, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Param,
+  UseGuards,
+  Req,
+  Post,
+} from '@nestjs/common';
 
 import { JwtAuthenticationGuard } from 'src/common/guards';
 import { ChatsService } from '../services';
 import { IChatResponse, IChatsWithRelationResponse } from '../types';
-import { ChatListPaginationDto, SearchChatParamsDto } from '../dto';
+import {
+  ChatListPaginationDto,
+  SearchChatParamsDto,
+  CreateChatDto,
+} from '../dto';
 import { ChatsMappers } from '../mappers';
 import { IRequestWithUser } from '../../users/types';
 

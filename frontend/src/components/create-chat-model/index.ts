@@ -1,1 +1,1 @@
-// export * from './create-chat-model.component';
+export * from './create-chat-model.component';
