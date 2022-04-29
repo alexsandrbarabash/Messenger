@@ -2,15 +2,23 @@ import React from 'react';
 
 import { withLogin } from '../../hocs';
 import { HomeWrapper } from './home.styles';
-import { MenuComponent, ChatsListComponent, ChatComponent } from '../../components';
+import {
+  MenuComponent,
+  ChatsListComponent,
+  ChatComponent,
+  // CreateChatModel
+} from '../../components';
 
 const HomePage = () => {
   return (
-    <HomeWrapper>
-      <MenuComponent />
-      <ChatsListComponent />
-      <ChatComponent />
-    </HomeWrapper>
+    <>
+      {/*<CreateChatModel />*/}
+      <HomeWrapper>
+        <MenuComponent />
+        <ChatsListComponent />
+        <ChatComponent />
+      </HomeWrapper>
+    </>
   );
 };
 

@@ -11,7 +11,7 @@ import { PostgresErrorCode } from 'src/common/enum';
 
 @Injectable()
 export class UsersRepository {
-  constructor(readonly _prismaBaseService: PrismaBaseService) {}
+  constructor(private readonly _prismaBaseService: PrismaBaseService) {}
 
   public async create(users: Prisma.UsersCreateInput): Promise<Users> {
     try {

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import joi, { ValidationResult } from 'joi';
 import { useNavigate } from 'react-router-dom';
 
-import { ApiHandler } from '../api';
+import { AuthApiHandler } from '../api';
 import { showAlert, login } from '../stores';
-import { PagesEnum } from '../enums';
+import { PagesEnum, LocalStorageEnum } from '../enums';
 
 const validationSchema = joi.object({
   password: joi.string().required(),
@@ -27,13 +27,14 @@ export const useLogin = () => {
         return showAlert(validationResult.error.message);
       }
 
-      const api = new ApiHandler();
+      const api = new AuthApiHandler();
       setIsLoad(true);
       const tokens = await api.logIn({
         username,
         password
       });
       login(tokens);
+      localStorage.setItem(LocalStorageEnum.REFRESH_TOKEN, tokens.refreshToken);
       navigate(PagesEnum.HOME);
     } catch (error) {
       setIsLoad(false);

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import joi, { ValidationResult } from 'joi';
 import { useNavigate } from 'react-router-dom';
 
-import { ApiHandler } from '../api';
+import { AuthApiHandler } from '../api';
 import { showAlert } from '../stores';
 import { PagesEnum } from '../enums';
 
@@ -33,7 +33,7 @@ export const useRegister = () => {
         return showAlert(validationResult.error.message);
       }
 
-      const api = new ApiHandler();
+      const api = new AuthApiHandler();
       setIsLoad(true);
       await api.register({
         username,

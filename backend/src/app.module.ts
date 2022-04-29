@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configValidationSchema } from './config/config.schema';
 import { LoggerModule } from './logger/logger.module';
 import { HttpLoggerMiddleware } from './middlewares/http-logger.middleware';
-import { UsersModule, RedisCacheModule } from './modules';
+import { UsersModule, RedisCacheModule, ChatsModule } from './modules';
 
 @Module({
   imports: [
@@ -15,6 +15,7 @@ import { UsersModule, RedisCacheModule } from './modules';
     LoggerModule,
     UsersModule,
     RedisCacheModule,
+    ChatsModule,
   ],
 })
 export class AppModule {

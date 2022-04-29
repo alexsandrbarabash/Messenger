@@ -4,9 +4,16 @@ import '@csstools/normalize.css';
 
 import { GlobalStyle } from './common/styles';
 import { AppRouter, ErrorBoundary } from './containers';
-import { AlertComponent } from './components';
+import { AlertComponent, Loader } from './components';
+import { useRefreshToken } from './hooks';
 
 const App = () => {
+  const { loading } = useRefreshToken();
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <BrowserRouter>
       <GlobalStyle />

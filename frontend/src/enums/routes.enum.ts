@@ -1,5 +1,8 @@
 export enum RoutesEnum {
   REGISTER = '/authentication/register',
   LOG_IN = '/authentication/log-in',
-  REFRESH_TOKEN = '/authentication/refresh-token'
+  REFRESH_TOKEN = '/authentication/refresh-token',
+  GET_ME = '/user',
+  MY_CHAT_LIST ='/chats/my-list',
+  CHAT_DATA = '/chats/chat-data/'
 }

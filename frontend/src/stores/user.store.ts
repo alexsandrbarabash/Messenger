@@ -4,10 +4,11 @@ import { IUserStore, ITokens, IUser } from '../types';
 
 export const login = createEvent<ITokens & IUser>();
 export const logout = createEvent();
+export const refresh = createEvent<ITokens>();
 
 export const userStore = createStore<IUserStore>({
   id: '',
-  isAuth: true,
+  isAuth: false,
   refreshToken: '',
   accessToken: '',
   username: '',
@@ -26,7 +27,15 @@ export const userStore = createStore<IUserStore>({
   }))
   .on(logout, (state) => ({
     ...state,
+    id: '',
     isAuth: false,
     refreshToken: '',
-    accessToken: ''
+    accessToken: '',
+    username: '',
+    firstName: ''
+  }))
+  .on(refresh, (state, tokens) => ({
+    ...state,
+    refreshToken: tokens.refreshToken,
+    accessToken: tokens.accessToken
   }));

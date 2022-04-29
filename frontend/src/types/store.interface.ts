@@ -13,3 +13,8 @@ export interface IAlertStore {
   message: string;
   show: boolean;
 }
+
+export interface IChatStore {
+  chatId: string;
+  title: string;
+}

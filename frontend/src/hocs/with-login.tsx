@@ -10,7 +10,7 @@ export const withLogin = (Component: React.FC<any>) => (props: any) => {
   const { isAuth } = useStore(userStore);
   useEffect(() => {
     if (!isAuth) {
-      navigate(PagesEnum.AUTH);
+      return navigate(PagesEnum.AUTH);
     }
   }, [isAuth]);
 
