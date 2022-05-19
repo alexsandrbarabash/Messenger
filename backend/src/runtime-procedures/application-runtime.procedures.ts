@@ -9,4 +9,12 @@ export class ApplicationRuntimeProcedures extends BaseChildProcessProcedure {
 
     this.logger.info('Prisma Schema Generate Finished!');
   }
+
+  public async startSeed(): Promise<void> {
+    this.logger.info('Seed Start!');
+
+    await this.execShellCommand(ShellCommandsEnum.SEED);
+
+    this.logger.info('Seed Finished!');
+  }
 }

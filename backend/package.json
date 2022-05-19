@@ -20,7 +20,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "generate-schema": "cat src/*/*.prisma > prisma/schema.prisma",
-    "migration": "yes | prisma migrate dev --name some-change"
+    "migration": "yes | prisma migrate dev --name some-change",
+    "seed": "node dist/seeds/index.js"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -29,9 +30,12 @@
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/platform-socket.io": "^8.4.4",
+    "@nestjs/websockets": "^8.4.4",
     "@prisma/client": "^3.11.1",
     "@types/passport-jwt": "^3.0.6",
     "@types/pino": "^7.0.5",
+    "@types/socket.io": "^3.0.2",
     "bcrypt": "^5.0.1",
     "cache-manager": "^3.6.1",
     "cache-manager-ioredis": "^2.1.0",

@@ -2,6 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { Users } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { WsException } from '@nestjs/websockets';
 import * as bcrypt from 'bcrypt';
 
 import { UsersRepository } from '../repositories';
@@ -92,5 +93,14 @@ export class UsersService {
     }
     await this._redisService.removeToken(payload.userId);
     return this.getJwtTokens(payload.userId);
+  }
+
+  public async getUserFromSocket(accessToken: string): Promise<Users> {
+    try {
+      const payload = this._jwtService.verify<ITokenPayloadAccess>(accessToken);
+      return this.getById(payload.userId);
+    } catch (error) {
+      throw new WsException('Forbidden');
+    }
   }
 }

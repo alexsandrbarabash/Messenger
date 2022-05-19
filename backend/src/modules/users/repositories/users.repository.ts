@@ -7,7 +7,7 @@ import {
 import { Users, Prisma } from '@prisma/client';
 
 import { PrismaBaseService } from '../../prisma-module/services';
-import { PostgresErrorCode } from 'src/common/enum';
+import { PostgresErrorCode } from '../../../common/enum';
 
 @Injectable()
 export class UsersRepository {

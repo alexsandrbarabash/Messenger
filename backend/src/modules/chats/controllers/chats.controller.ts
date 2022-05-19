@@ -5,17 +5,14 @@ import {
   Param,
   UseGuards,
   Req,
-  Post,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 
 import { JwtAuthenticationGuard } from 'src/common/guards';
 import { ChatsService } from '../services';
 import { IChatResponse, IChatsWithRelationResponse } from '../types';
-import {
-  ChatListPaginationDto,
-  SearchChatParamsDto,
-  CreateChatDto,
-} from '../dto';
+import { ChatListPaginationDto, SearchChatParamsDto } from '../dto';
 import { ChatsMappers } from '../mappers';
 import { IRequestWithUser } from '../../users/types';
 
@@ -25,6 +22,7 @@ export class ChatsController {
   constructor(private readonly _chatsService: ChatsService) {}
 
   @Get('/chats-list')
+  @HttpCode(HttpStatus.OK)
   public async getChats(
     @Query() chatListPaginationDto: ChatListPaginationDto,
   ): Promise<IChatResponse[]> {
@@ -32,6 +30,7 @@ export class ChatsController {
   }
 
   @Get('/chats-list/:id')
+  @HttpCode(HttpStatus.OK)
   public async getChat(
     @Param() searchChatParamsDto: SearchChatParamsDto,
   ): Promise<IChatResponse> {
@@ -39,14 +38,16 @@ export class ChatsController {
   }
 
   @Get('/my-list')
+  @HttpCode(HttpStatus.OK)
   public async getChatsByUser(
     @Req() req: IRequestWithUser,
   ): Promise<IChatResponse[]> {
     const data = await this._chatsService.getChatsByUser(req.user.id);
-    return ChatsMappers.formatUserChatsToReponse(data);
+    return ChatsMappers.formatUserChatsToResponse(data);
   }
 
   @Get('/chat-data/:id')
+  @HttpCode(HttpStatus.OK)
   public async getChatData(
     @Param() searchChatParamsDto: SearchChatParamsDto,
   ): Promise<IChatsWithRelationResponse> {

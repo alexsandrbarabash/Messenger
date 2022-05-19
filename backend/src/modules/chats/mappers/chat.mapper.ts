@@ -19,7 +19,7 @@ export class ChatsMappers {
     };
   }
 
-  static formatUserChatsToReponse(userChats: IUserChats[]): IChatResponse[] {
+  static formatUserChatsToResponse(userChats: IUserChats[]): IChatResponse[] {
     return userChats.map((item) => ({ ...item.chats }));
   }
 }

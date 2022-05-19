@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { v4 as uuid } from 'uuid';
 
 import { AppModule } from './app.module';
 import { PinoLoggerService } from './logger/pino-logger.service';
@@ -11,7 +13,7 @@ async function bootstrap() {
 
   app.use((req, res, next) => {
     const asyncStorage = app.get(ASYNC_STORAGE);
-    const traceId = req.headers['x-trace-id'];
+    const traceId = req.headers['x-trace-id'] || uuid();
     asyncStorage.run({ traceId }, () => {
       next();
     });
@@ -26,10 +28,14 @@ async function bootstrap() {
   );
 
   const applicationRuntimeProcedures = new ApplicationRuntimeProcedures();
+
   await applicationRuntimeProcedures.startPrisma();
 
+  await applicationRuntimeProcedures.startSeed();
+
   await app.useLogger(app.get(PinoLoggerService));
-  await app.listen(3001);
+  const configService: ConfigService = app.get(ConfigService);
+  await app.listen(configService.get('PORT'));
 }
 
 bootstrap();

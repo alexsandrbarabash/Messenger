@@ -3,14 +3,22 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-
 import { Chats, Prisma } from '@prisma/client';
+
 import { PrismaBaseService } from '../../prisma-module/services';
 import { IChatData } from '../types';
 
 @Injectable()
 export class ChatsRepository {
   constructor(private readonly _prismaBaseService: PrismaBaseService) {}
+
+  public async createOne(data: Prisma.ChatsCreateInput): Promise<Chats> {
+    try {
+      return this._prismaBaseService.chats.create({ data });
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 
   public async getByParams({
     params = {},
@@ -51,6 +59,10 @@ export class ChatsRepository {
     return data[0];
   }
 
+  /**
+   *
+   * TODO: move to service
+   */
   public async getChatWithRelation(id: string): Promise<IChatData> {
     try {
       const data = await this._prismaBaseService.chats.findFirst({

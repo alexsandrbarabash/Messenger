@@ -26,5 +26,6 @@ import { RedisCacheModule } from '../redis/redis-cache.module';
   ],
   controllers: [UsersController, AuthenticationController],
   providers: [UsersService, UsersRepository, LocalStrategy, JwtStrategy],
+  exports: [UsersService],
 })
 export class UsersModule {}

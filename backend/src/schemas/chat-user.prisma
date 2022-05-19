@@ -1,9 +1,9 @@
 model ChatUser {
   userId String @db.Uuid @map("user_id")
   chatId String @db.Uuid @map("chat_id")
-  roleId String @db.Uuid @map("role_id")
+  roleId String? @db.Uuid @map("role_id")
   chats   Chats  @relation(fields: [chatId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  roles   Roles  @relation(fields: [roleId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  roles   Roles?  @relation(fields: [roleId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users   Users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([userId, chatId])
