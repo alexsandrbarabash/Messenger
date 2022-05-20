@@ -40,7 +40,6 @@ export class WebsocketGateway implements OnGatewayConnection {
 
   public async handleConnection(socket: Socket): Promise<void> {
     try {
-      console.log(socket.id);
       const user = await this._usersService.getUserFromSocket(
         socket.handshake.headers.authorization,
       );
@@ -91,12 +90,9 @@ export class WebsocketGateway implements OnGatewayConnection {
     @MessageBody() createChatDto: CreateChatDto,
     @ConnectedSocket() socket: Socket,
   ): Promise<void> {
-    console.log('sdfsd 1');
     const data = await this._websocketService.createChat(createChatDto);
-    console.log('sdfsd 2');
     const users: string[] =
       createChatDto.users?.map((item) => item.userId) || [];
-    console.log('sdfsd');
     users.push(createChatDto.ownerId);
 
     users.forEach((item) => {
