@@ -5,3 +5,5 @@ export * from './user.interface';
 export * from './chat-card.interfaces';
 export * from './messages.interface';
 export * from './chat-data.interfaces';
+export * from './chip.interface';
+export * from './websocket-context.interfaces';

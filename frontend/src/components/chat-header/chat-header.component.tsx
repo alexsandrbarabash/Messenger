@@ -14,7 +14,7 @@ export const ChatHeader: FC<IProps> = ({ title }) => {
         src='https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
         alt='Your browser not support this picture'
       />
-      <span className='title'>{{ title }}</span>
+      <span className='title'>{title}</span>
     </ChatHeaderWrapper>
   );
 };

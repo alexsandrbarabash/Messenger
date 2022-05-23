@@ -12,11 +12,10 @@ interface IProps {
 
 export const ChatBody: FC<IProps> = ({ messages }) => {
   const { id } = useStore(userStore);
-
   return (
     <ChatBodyWrapper>
       {messages.map((item) => {
-        return <Message isYour={id === item.id}>{item.text}</Message>;
+        return <Message isYour={id === item.userId}>{item.text}</Message>;
       })}
     </ChatBodyWrapper>
   );

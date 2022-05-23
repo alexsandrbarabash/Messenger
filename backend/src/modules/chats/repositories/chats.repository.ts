@@ -36,6 +36,7 @@ export class ChatsRepository {
         where: params,
         take,
         skip,
+        orderBy: [{ createdAt: 'desc' }],
       });
 
       if (throwError && (!foundData || !foundData?.length)) {
@@ -68,7 +69,7 @@ export class ChatsRepository {
       const data = await this._prismaBaseService.chats.findFirst({
         where: { id },
         include: {
-          messages: { take: 30 },
+          messages: { take: 30, orderBy: { createdAt: 'desc' } },
           chatUser: {
             select: {
               users: {

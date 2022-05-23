@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useStore } from 'effector-react';
 
-import { userStore } from '../stores';
-import { IMessages } from '../types';
+import { userStore, messagesStore, loadMessages } from '../stores';
 import { ChatsApiHandler } from '../api';
 
 export const useChatData = (chatId: string = '') => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
-  const [messages, setMessages] = useState<IMessages[]>([]);
 
   const { accessToken } = useStore(userStore);
+  const { messages } = useStore(messagesStore);
 
   const loadChatData = async () => {
     setLoading(true);
     const api = new ChatsApiHandler(accessToken);
     const data = await api.getChatData(chatId);
     setTitle(data.title);
-    setMessages(data.messages);
+    loadMessages(data.messages);
     setLoading(false);
   };
 

@@ -1,23 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useStore } from 'effector-react';
 
-import { userStore } from '../stores';
-import { IChatCard } from '../types';
+import { userStore, chatListStore, loadChats } from '../stores';
 import { ChatsApiHandler } from '../api';
 
 export const useChatList = () => {
   const [loading, setLoading] = useState(false);
-  const [chats, setChats] = useState<IChatCard[]>([]);
 
   const { accessToken } = useStore(userStore);
+  const { chats } = useStore(chatListStore);
 
-  const loadAllMyChats = async () => {
+  const loadAllMyChats = useCallback(async () => {
     setLoading(true);
     const api = new ChatsApiHandler(accessToken);
     const myChat = await api.getMyChatList();
-    setChats(myChat);
+    loadChats(myChat);
     setLoading(false);
-  };
+  }, [accessToken]);
 
   useEffect(() => {
     loadAllMyChats();

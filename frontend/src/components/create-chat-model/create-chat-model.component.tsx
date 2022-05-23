@@ -1,4 +1,4 @@
-import React, { FC, useState, KeyboardEvent } from 'react';
+import React, { FC, KeyboardEvent } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Chip from '@mui/material/Chip';
@@ -21,6 +21,13 @@ const style = {
 interface IProps {
   open: boolean;
   handleClose: () => void;
+  usernames: IChip[];
+  setUsernames: (value: IChip[] | ((prevVar: IChip[]) => IChip[])) => void;
+  username: string;
+  setUsername: (value: string | ((prevVar: string) => string)) => void;
+  submit: (data: any) => Promise<void>;
+  title: string;
+  setTitle: (value: string | ((prevVar: string) => string)) => void;
 }
 
 interface IChip {
@@ -28,10 +35,17 @@ interface IChip {
   text: string;
 }
 
-export const CreateChatModel: FC<IProps> = ({ open, handleClose }) => {
-  const [usernames, setUsernames] = useState<IChip[]>([]);
-  const [username, setUsername] = useState('');
-
+export const CreateChatModel: FC<IProps> = ({
+  open,
+  handleClose,
+  usernames,
+  setUsernames,
+  username,
+  setUsername,
+  title,
+  setTitle,
+  submit
+}) => {
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && username.trim()) {
       setUsernames((usernames) => [
@@ -61,7 +75,11 @@ export const CreateChatModel: FC<IProps> = ({ open, handleClose }) => {
       >
         <Box sx={style}>
           <h4>Chat Create</h4>
-          <CustomInput placeholder={'Chat Name'} />
+          <CustomInput
+            placeholder={'Chat Name'}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <div>
             <CustomInput
               placeholder={'Username'}
@@ -70,7 +88,7 @@ export const CreateChatModel: FC<IProps> = ({ open, handleClose }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <CustomButton>Create</CustomButton>
+          <CustomButton onClick={submit}>Create</CustomButton>
           <ChipBlock>
             {usernames.map((item) => (
               <Chip

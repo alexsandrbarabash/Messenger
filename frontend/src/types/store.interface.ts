@@ -1,3 +1,6 @@
+import { IMessages } from './messages.interface';
+import { IChatCard } from './chat-card.interfaces';
+
 export interface IUserStore {
   isAuth: boolean;
   refreshToken: string;
@@ -17,4 +20,12 @@ export interface IAlertStore {
 export interface IChatStore {
   chatId: string;
   title: string;
+}
+
+export interface IMessagesStore {
+  messages: IMessages[];
+}
+
+export interface IChatsStore {
+  chats: IChatCard[]
 }

@@ -17,4 +17,12 @@ export class UserApiHandler {
     const { data } = await this._apiInstance.get<IUser>(RoutesEnum.GET_ME);
     return data;
   }
+
+  public async getUserByUsername(username: string): Promise<IUser> {
+    const { data } = await this._apiInstance.get<IUser>(
+      RoutesEnum.GET_BY_USERNAME,
+      { params: { username } }
+    );
+    return data;
+  }
 }

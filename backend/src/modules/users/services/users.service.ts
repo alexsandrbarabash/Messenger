@@ -31,7 +31,7 @@ export class UsersService {
     });
   }
 
-  private async _getByUsername(username: string): Promise<Users> {
+  public async getByUsername(username: string): Promise<Users> {
     return this._usersRepository.getOneByParams({
       params: { username },
       throwError: true,
@@ -52,7 +52,7 @@ export class UsersService {
     hashedPassword: string,
   ): Promise<Users> {
     try {
-      const user = await this._getByUsername(username);
+      const user = await this.getByUsername(username);
       const isPasswordMatching = await bcrypt.compare(
         hashedPassword,
         user.password,

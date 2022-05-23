@@ -6,11 +6,9 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
 import { Logger, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Socket, Server } from 'socket.io';
 
-import { UsersService } from '../../users/services';
-import { ChatsService } from '../../chats/services';
 import {
   JoinUserDto,
   CreateChatDto,
@@ -32,31 +30,25 @@ export class WebsocketGateway implements OnGatewayConnection {
   @WebSocketServer()
   private readonly _server: Server;
 
-  constructor(
-    private readonly _usersService: UsersService,
-    private readonly _chatsService: ChatsService,
-    private readonly _websocketService: WebsocketService,
-  ) {}
+  constructor(private readonly _websocketService: WebsocketService) {}
 
   public async handleConnection(socket: Socket): Promise<void> {
     try {
-      const user = await this._usersService.getUserFromSocket(
-        socket.handshake.headers.authorization,
-      );
+      const { chats, id } = await this._websocketService.connectUser({
+        token: socket.handshake.headers.authorization,
+      });
 
-      if (!user) {
-        this._logger.error('Not allow connect');
-        socket.disconnect();
-        return;
-      }
-
-      this._logger.log(`User with id:${user.id} connect`);
-      const chats = await this._chatsService.getMyChat(user.id);
+      this._logger.log(`User with id:${id} connect`);
       chats.forEach((item) => {
         socket.join(item.chatId);
       });
+
+      /**
+       * Join user to his own room
+       */
+      socket.join(id);
     } catch (error) {
-      this._logger.error('Not allow connect');
+      this._logger.error('Not allow connect user');
       socket.disconnect();
     }
   }
@@ -95,10 +87,12 @@ export class WebsocketGateway implements OnGatewayConnection {
       createChatDto.users?.map((item) => item.userId) || [];
     users.push(createChatDto.ownerId);
 
-    users.forEach((item) => {
-      socket.to(item).emit('join-to-chat', data);
-      socket.emit('join-to-chat', data);
-    });
+    socket.to(users).emit('join-to-chat', data);
+
+    /**
+     * Send to device response
+     */
+    socket.emit('join-to-chat', data);
   }
 
   @SubscribeMessage('write-message')
@@ -108,5 +102,10 @@ export class WebsocketGateway implements OnGatewayConnection {
   ): Promise<void> {
     const message = await this._websocketService.writeMessage(writeMessageDto);
     socket.to(writeMessageDto.chatId).emit('write-message', message);
+
+    /**
+     * Send to device response
+     */
+    socket.emit('write-message', message);
   }
 }

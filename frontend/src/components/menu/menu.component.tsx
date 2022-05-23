@@ -6,6 +6,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { MenuWrapper } from './menu.styles';
 import { Image } from '../../common/styles';
+import { logout } from '../../stores';
 
 interface IProps {
   openChatModeHandler: () => void;
@@ -28,7 +29,7 @@ export const MenuComponent: React.FC<IProps> = ({ openChatModeHandler }) => {
         <MessageOutlinedIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
         <SettingsOutlinedIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
       </div>
-      <div>
+      <div onClick={() => logout()}>
         <LogoutOutlinedIcon sx={{ fontSize: 40, cursor: 'pointer' }} />
       </div>
     </MenuWrapper>
