@@ -1,10 +1,11 @@
 import { AsyncLocalStorage } from 'async_hooks';
 import { Inject, Injectable, LoggerService } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import pinoLogger from 'pino';
+
 import { ASYNC_STORAGE } from './logger.constants';
 import { MessageData } from './types/message-data.interface';
 import { AsyncStorageData } from './types/async-storage-data.interface';
-import { ConfigService } from '@nestjs/config';
 
 const pino = pinoLogger({ prettyPrint: true });
 

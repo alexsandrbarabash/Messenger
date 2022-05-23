@@ -1,12 +1,11 @@
 import * as Joi from 'joi';
 
 export const configValidationSchema = Joi.object({
-  APP_NAME: Joi.string().default('auth-api'),
-  DB_HOST: Joi.string().required(),
-  DB_PORT: Joi.number().default(5432).required(),
-  DB_USERNAME: Joi.string().required(),
-  DB_PASSWORD: Joi.string().required(),
-  DB_DATABASE: Joi.string().required(),
-  JWT_SECRET: Joi.string().required(),
-  JWT_EXPIRES_IN: Joi.number().default(3600).required(),
+  APP_NAME: Joi.string().default('nest-api'),
+  PORT: Joi.number().required(),
+  DATABASE_URL: Joi.string().required(),
+  JWT_EXPIRES_IN_ACCESS: Joi.number().required(),
+  JWT_EXPIRES_IN_REFRESH: Joi.number().required(),
+  REDIS_HOST: Joi.string().required(),
+  REDIS_PORT: Joi.number().required(),
 });

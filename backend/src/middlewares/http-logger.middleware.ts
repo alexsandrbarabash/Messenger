@@ -7,7 +7,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
   private logger = new Logger('HTTP');
 
   use(request: Request, response: Response, next: NextFunction): void {
-    const { method, path: url, query, body, header } = request;
+    const { method, path: url, query, body, headers } = request;
 
     response.on('close', () => {
       const { statusCode } = response;
@@ -20,7 +20,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
           statusCode,
           query,
           body,
-          auth: header['Authorization'],
+          auth: headers['authorization'],
         },
       });
     });

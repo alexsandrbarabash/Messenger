@@ -1,5 +1,6 @@
 # compiled output
 /dist
+/seed-dist
 /node_modules
 
 # Logs
@@ -36,3 +37,6 @@ lerna-debug.log*
 
 # ENV
 .env
+
+# PRISMA
+schema.prisma

@@ -1,0 +1,11 @@
+model Messages {
+  id      String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid @map("user_id")
+  chatId String @db.Uuid @map("chat_id")
+  text    String
+  createdAt  DateTime     @default(now()) @db.Timestamp(6) @map("created_at")
+  chats   Chats  @relation(fields: [chatId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users   Users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("messages")
+}
